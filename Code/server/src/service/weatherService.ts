@@ -99,7 +99,7 @@ class WeatherService {
 
   
   buildWeatherQuery(coordinates: Coordinates): string {
-   console.log('Hello')
+   
     
     const query = `${this.baseURL}/data/2.5/forecast?lat=${coordinates.lat}&lon=${coordinates.lon}&units=imperial&appid=${this.apiKey}`
     return query;
