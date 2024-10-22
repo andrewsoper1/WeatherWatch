@@ -18,14 +18,14 @@ export interface Coordinates {
 // TODO: Define a class for the Weather object
 class Weather {
   city: string;
-  date: Date;
+  date: string;
   icon: string;
   tempF: number;
   windSpeed: number;
   humidity: number;
   iconDescription: string;
 
-  constructor(city: string, date: Date ,icon: string,  tempF: number, windSpeed: number, humidity: number, iconDescription: string ) {
+  constructor(city: string, date: string ,icon: string,  tempF: number, windSpeed: number, humidity: number, iconDescription: string ) {
     this.city = city;
     this.date = date;
     this.icon = icon;
@@ -53,6 +53,13 @@ class WeatherService {
     this.apiKey = process.env.API_KEY || '';
     
   }
+  private formatDate(date:Date): string {
+    const year = date.getFullYear();
+    const month = (date.getMonth() + 1).toString().padStart(2,'0');
+    const day = date.getDate().toString().padStart(2,'0');
+  
+    return `${month}-${day}-${year}`;
+   }
   // TODO: Create fetchLocationData method
     private async fetchLocationData(query: string) {
       
@@ -131,13 +138,13 @@ class WeatherService {
     const currentWeather = list[0]
     const weather = new Weather(
       this.city,
-      new Date(currentWeather.dt_txt),
+      this.formatDate(new Date(currentWeather.dt_txt)),
       currentWeather.weather[0].icon,
       currentWeather.main.temp,
       currentWeather.wind.speed,
       currentWeather.main.humidity,
       currentWeather.weather[0].description
-    )
+    );
     // const weather = new Weather(
     //     this.city,
     //     list[0].weather[0].icon,
@@ -163,11 +170,12 @@ class WeatherService {
     const forecastArray: Weather[] = [currentWeather]
     for (let i = 1; i < weatherData.length; i+= 8) {
       const {weather, main, wind, dt_txt} = weatherData[i]
+      
     
       forecastArray.push(
         new  Weather(
           this.city,
-          new Date(dt_txt),
+          this.formatDate(new Date(dt_txt)),
           weather[0].icon,
           main.temp,
           wind.speed,
