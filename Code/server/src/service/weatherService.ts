@@ -70,7 +70,7 @@ class WeatherService {
       
       
     }
-  // TODO: Create destructureLocationData method
+
   private destructureLocationData(locationData: Coordinates): Coordinates {
       
       const coordinates: Coordinates = {
