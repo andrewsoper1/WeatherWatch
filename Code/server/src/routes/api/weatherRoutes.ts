@@ -2,11 +2,10 @@ import { Router, type Request, type Response } from 'express';
 const router = Router();
 
 import HistoryService from '../../service/historyService.js';
-// import HistoryService from '../../service/weatherService.js';
 import WeatherService from '../../service/weatherService.js';
-// import { WeatherService} from '../../service/weatherService.js';
 
-// const ws  = new WeatherService();
+
+
 
 
 
@@ -17,17 +16,7 @@ router.post('/', async (req: Request, res: Response) => {
   res.json(weatherData)
 
   await HistoryService.addCity(city)
-  //res.json(weatherData);
-  // const coordinates: Coordinates = {
-       
-  //   lat: 40.5710454,
-  //   lon: -111.8953815
-    
-
-  // }
-  // const ws  = new WeatherService();
-  // const weatherData = await ws.fetchWeatherData(coordinates)
-  // console.log(weatherData)
+  
 
   
   
